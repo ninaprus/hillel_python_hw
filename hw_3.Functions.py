@@ -30,6 +30,35 @@ game_rockscissorspaper()
 # "people" ⁠— Number of people in the household.
 # "tp" ⁠— Number of rolls.
 # Return a statement telling the user if they need to buy more TP!
+def toilet_paper(**dict):
+    SHEETS_PER_ROLL = 500
+    SHEETS_PER_DAY = 57
+    DAYS = 14
+
+    people = int(dict["people"])
+    tp = int(dict["tp"])
+
+    sheets_for_people = SHEETS_PER_DAY * people
+    sheets_for_14_days = sheets_for_people * DAYS
+
+    if sheets_for_14_days % SHEETS_PER_ROLL != 0:
+        need_roll = (sheets_for_14_days // SHEETS_PER_ROLL) + 1
+    else:
+        need_roll = sheets_for_14_days // SHEETS_PER_ROLL
+    if tp >= need_roll:
+        return print('You have enough toilet paper')
+    else:
+        buy = need_roll - tp
+        return print('You need to buy', buy, 'TP!')
+
+d = {}
+print('Number of people in the household', end='')
+d["people"] = input(int())
+print('Number of rolls', end='')
+d["tp"] = input(int())
+
+toilet_paper(**d)
+
 
 # 3) Make a function that encrypts a given input with these steps:
 # Input: "apple"
