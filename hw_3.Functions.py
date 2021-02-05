@@ -75,7 +75,21 @@ toilet_paper(**d)
 # encrypt("karaca") ➞ "0c0r0kaca"
 # encrypt("burak") ➞ "k0r3baca"
 # encrypt("alpaca") ➞ "0c0pl0aca"
+def encrypts():
+    # Input: "apple"
+    word = input('Input word: ')
 
+    # Step 1: Reverse the input: "elppa"
+    word1 = ''.join(item[::-1] for item in word.split())
+
+    # Step 2: Replace all vowels using the following chart:
+    d = {'a': 0, 'e': 1, 'i': 2, 'o': 2, 'u': 3}
+    word2 = ''.join(map(str, [d[x] if x in d.keys() else x for x in word1]))
+
+    return print(word2)
+
+
+encrypts()
 
 # **4)Given a 3x3 matrix of a completed tic-tac-toe game, create a function that returns whether the game is a win
 # for "X", "O", or a "Draw", where "X" and "O" represent themselves on the matrix, and "E" represents an empty spot.
