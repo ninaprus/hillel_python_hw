@@ -52,10 +52,10 @@ def toilet_paper(**dict):
         return print('You need to buy', buy, 'TP!')
 
 d = {}
-print('Number of people in the household', end='')
-d["people"] = input(int())
-print('Number of rolls', end='')
-d["tp"] = input(int())
+print('Number of people in the household ', end='')
+d["people"] = input()
+print('Number of rolls ', end='')
+d["tp"] = input()
 
 toilet_paper(**d)
 
@@ -88,7 +88,6 @@ def encrypts():
 
     return print(word2)
 
-
 encrypts()
 
 # **4)Given a 3x3 matrix of a completed tic-tac-toe game, create a function that returns whether the game is a win
@@ -112,4 +111,48 @@ encrypts()
 #     ["X", "X", "O"]
 # ]) ➞ "Draw"
 
+def game_tic_tac_toe(matrix):
+    winO = False
+    winX = False
 
+    def determine_the_winner(d):
+        if ''.join(x for x in d) == 'OOO':
+            nonlocal winO
+            winO = True
+            return print('O')
+        elif ''.join(x for x in d) == 'XXX':
+            nonlocal winX
+            winX = True
+            return print('X')
+
+    d1 = []
+    d2 = []
+    for i in range(len(matrix)):
+        d1.append(matrix[i][i])
+        d2.append(matrix[i - 1][-i])
+    determine_the_winner(d1)
+    determine_the_winner(d2)
+
+    # rows
+    for i in range(len(matrix)):
+        determine_the_winner(matrix[i])
+
+    # colms
+    colm0 = []
+    colm1 = []
+    colm2 = []
+    for i in range(len(matrix)):
+        colm0.append(matrix[i][0])
+        colm1.append(matrix[i][1])
+        colm2.append(matrix[i][2])
+    determine_the_winner(colm0)
+    determine_the_winner(colm1)
+    determine_the_winner(colm2)
+
+    if winX!= True and winO != True: return print('Draw')
+
+a = [["X", "X", "O"],
+     ["X", "1", "O"],
+     ["E", "X", "O"]]
+
+game_tic_tac_toe(a)
