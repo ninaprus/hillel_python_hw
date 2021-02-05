@@ -1,6 +1,26 @@
 # 1) Write a function that emulates the game "rock, scissors, paper"
 # At the entrance, your function accepts your version printed from the console, the computer makes a decision randomly.
 
+def game_rockscissorspaper():
+    import random
+    def determine_the_winner(var1, var2):
+        if (var1 == 'rock' and var2 == 'scissors') or + \
+                (var1 == 'paper' and var2 == 'rock') or + \
+                (var1 == 'scissors' and var2 == 'paper'):
+            print('You won')
+        elif var1 == var2:
+            print('Draw')
+        else:
+            print('Computer won')
+
+    var_list = ['rock', 'scissors', 'paper']
+    var1 = input('Input rock, scissors or paper: ')
+    var2 = str(random.choice(var_list))
+    print('Choice computer: ', var2)
+    determine_the_winner(var1, var2)
+
+game_rockscissorspaper()
+
 # 2)Try to imagine a world in which you might have to stay home for (Corona virus) 14 days at any given time.
 # Do you have enough toilet paper(TP) to make it through?
 # Although the number of squares per roll of TP varies significantly, we'll assume each roll has 500 sheets,
