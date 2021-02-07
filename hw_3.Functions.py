@@ -2,21 +2,21 @@
 # At the entrance, your function accepts your version printed from the console, the computer makes a decision randomly.
 import random
 def game_rockscissorspaper():
-    def determine_the_winner(var1, var2):
-        if (var1 == 'rock' and var2 == 'scissors') or + \
-                (var1 == 'paper' and var2 == 'rock') or + \
-                (var1 == 'scissors' and var2 == 'paper'):
+    def determine_the_winner(player1, player2):
+        if (player1 == 'rock' and player2 == 'scissors') or + \
+                (player1 == 'paper' and player2 == 'rock') or + \
+                (player1 == 'scissors' and player2 == 'paper'):
             print('You won')
-        elif var1 == var2:
+        elif player1 == player2:
             print('Draw')
         else:
             print('Computer won')
 
     var_list = ('rock', 'scissors', 'paper')
-    var1 = input('Input rock, scissors or paper: ')
-    var2 = str(random.choice(var_list))
-    print('Choice computer: ', var2)
-    determine_the_winner(var1, var2)
+    player1 = input('Input rock, scissors or paper: ').lower()
+    player2 = str(random.choice(var_list))
+    print('Choice computer: ', player2)
+    determine_the_winner(player1, player2)
 
 game_rockscissorspaper()
 
