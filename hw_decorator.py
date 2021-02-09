@@ -4,6 +4,7 @@
 import functools
 
 def divide_by_100(func):
+    """Decorator checks the remainder of (100 % result of function)."""
     @functools.wraps(func)
     def wrapper_divide_by_100(*args, **kwargs):
         value = func(*args, **kwargs)
@@ -17,6 +18,7 @@ def divide_by_100(func):
 
 @divide_by_100
 def math_func(number):
+    """ The function sums the value in the list and returns the result """
     res = sum([i for i in range(number)])
     return res
 
@@ -28,6 +30,7 @@ print(math_func(5))
 # тогда зарейзить ошибку ValueError (raise ValueError(“string type is not supported”))
 
 def type_arg(func):
+    """Decorator checks the type argument that is passed to your function."""
     @functools.wraps(func)
     def wrapper_type_arg(args):
         if isinstance(args, int):
@@ -41,6 +44,7 @@ def type_arg(func):
 
 @type_arg
 def my_func(number):
+    """ The function sums the value in the list and returns the result """
     res = sum([i for i in range(number)])
     return res
 
@@ -54,6 +58,8 @@ print(my_func('10'))
 # количество раз обращений в cache.
 
 def cache_decorator(func):
+    """Decorator caches the values of the arguments and the results
+    of your function and writes it to the cache variable."""
     cache = {'counters_func': 0, 'counters_cache': 0}
     @ functools.wraps(func)
     def wrapper_cache_decorator(args):
@@ -70,6 +76,7 @@ def cache_decorator(func):
 
 @cache_decorator
 def my_count_func(number):
+    """ The function sums the value in the list and returns the result """
     res = sum([i for i in range(number)])
     return res
 
