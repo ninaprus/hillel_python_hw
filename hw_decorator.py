@@ -38,8 +38,6 @@ def type_arg(func):
             return value
         elif isinstance(args, str):
             raise ValueError('String type is not supported')
-        else:
-            pass
     return wrapper_type_arg
 
 @type_arg
