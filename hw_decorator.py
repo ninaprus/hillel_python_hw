@@ -30,10 +30,10 @@ print(math_func(5))
 def type_arg(func):
     @functools.wraps(func)
     def wrapper_type_arg(args):
-        if type(args)==int:
+        if isinstance(args, int):
             value = func(args)
             return value
-        elif type(args)==str:
+        elif isinstance(args, str):
             raise ValueError('String type is not supported')
         else:
             pass
