@@ -52,3 +52,30 @@ print(my_func('10'))
 # «Function executed with counter = {}, function result = {}» и количество раз сколько эта функция выполнялась.
 # Если значение берется из переменной cache, вывести сообщение «Used cache with counter = {}» и
 # количество раз обращений в cache.
+
+def cache_decorator(func):
+    cache = {'counters_func': 0, 'counters_cache': 0}
+    @ functools.wraps(func)
+    def wrapper_cache_decorator(args):
+        if args not in cache:
+            cache[args] = func(args)
+            cache['counters_func'] +=1
+            print(f"Function executed with counter = {cache['counters_func']}, function result = {cache[args]}")
+            return cache[args]
+        else:
+            cache['counters_cache'] +=1
+            print(f"Used cache with counter = {cache['counters_cache']}")
+            return cache[args]
+    return wrapper_cache_decorator
+
+@cache_decorator
+def my_count_func(number):
+    res = sum([i for i in range(number)])
+    return res
+
+my_count_func(10)
+my_count_func(6)
+my_count_func(6)
+my_count_func(10)
+my_count_func(8)
+my_count_func(10)
