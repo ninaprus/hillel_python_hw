@@ -27,6 +27,25 @@ print(math_func(5))
 # Если это int, тогда выполнить функцию и вывести результат, если это str(),
 # тогда зарейзить ошибку ValueError (raise ValueError(“string type is not supported”))
 
+def type_arg(func):
+    @functools.wraps(func)
+    def wrapper_type_arg(args):
+        if type(args)==int:
+            value = func(args)
+            return value
+        elif type(args)==str:
+            raise ValueError('String type is not supported')
+        else:
+            pass
+    return wrapper_type_arg
+
+@type_arg
+def my_func(number):
+    res = sum([i for i in range(number)])
+    return res
+
+print(my_func('10'))
+
 # ЗАДАЧА-3
 # Написать декоратор который будет кешировать значения аргументов и результаты работы вашей функции и записывать
 # его в переменную cache. Если аргумента нет в переменной cache и функция выполняется, вывести сообщение
