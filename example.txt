@@ -1,0 +1,5 @@
+This tutorial provided an in-depth look at the many different mechanisms Python provides for string handling.
+You also were introduced to the bytes and bytearray types.
+These types are the first types you have examined that are composite built from a collection of smaller parts.
+Python provides several composite built-in types.
+In the next tutorial, you will explore two of the most frequently used: lists and tuples.
