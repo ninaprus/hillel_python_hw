@@ -49,3 +49,48 @@ with open('example.txt') as reader2:
         line = line.rstrip('\n')
         print(line.rjust(max_len))
 
+#4)Дан текстовый файл со статистикой посещения сайта за неделю.
+# Каждая строка содержит ip адрес, время и название дня недели
+# (например, 139.18.150.126 23:12:44 sunday). Создайте новый текстовый файл,
+# который бы содержал список ip без повторений из первого файла.
+# Для каждого ip укажите количество посещений, наиболее популярный день недели.
+# Последней строкой в файле добавьте наиболее популярный отрезок времени
+# в сутках длиной один час в целом для сайта.
+
+def most_frequent(list_var):
+    """ Returns the most frequent value """
+    count = {}
+    for j in list_var:
+        if j in count.keys():
+            count[j] += 1
+        else:
+            count[j] = 1
+    max_count = max(count, key=count.get)
+    return max_count
+
+with open('visit_st.txt', 'r') as reader_st:
+    file = reader_st.readlines()
+
+    ip = {}
+    ip_day = {}
+    time = []
+    for line in file:
+        line = line.split()
+        time.append(line[1][0:2]) # only hours without minutes and seconds
+        # ip{}
+        if line[0] not in ip:
+            ip[line[0]] = 1
+        else:
+            ip[line[0]] += 1
+        #ip_day{}
+        if line[0] not in ip_day:
+            ip_day[line[0]] = []
+            ip_day[line[0]].append(line[2])
+        else:
+            ip_day[line[0]].append(line[2])
+
+with open('st_new.txt', 'w') as writer_st:
+    for key, value in ip.items():
+        if key in ip_day:
+            writer_st.write(f'{key}: total visits - {value}, most popular day - {most_frequent(ip_day[key])} \n')
+    writer_st.write(f'Most popular time from {most_frequent(time)} to {int(most_frequent(time)) + 1} ')
