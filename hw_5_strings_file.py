@@ -32,3 +32,20 @@ with open('phone_num.txt', 'r') as reader_ph, open('phone_num_new.txt', 'w') as 
             if item.isalpha():
                 if item.startswith('C') or item.startswith('K'):
                     writer_ph.write(line)
+
+
+#3) Получить файл, в котором текст выровнен по правому краю путем
+# равномерного добавления пробелов.
+
+with open('example.txt') as reader2:
+    file = reader2.readlines()
+    #find the maximum length of lines
+    len_line = []
+    for line in file:
+        len_line.append(len(line))
+    max_len = max(len_line)
+
+    for line in file:
+        line = line.rstrip('\n')
+        print(line.rjust(max_len))
+
