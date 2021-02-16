@@ -1,0 +1,5 @@
+tutorial provided an in-depth at different mechanisms Python provides for string handling 
+introduced to bytearray types 
+examined composite a collection of smaller parts 
+Python provides several composite built-in types 
+In tutorial, explore of frequently tuples 
