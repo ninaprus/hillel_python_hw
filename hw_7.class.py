@@ -47,7 +47,58 @@ d.get_last_ip()
 # 3) Объединение данных из файлов в новый файл
 # 4) Получить путь относительный путь к файлу
 # 5) Получить абсолютный путь к файлу
-# 
+#
+def get_file_tools(my_file):
+    """ Function creates an instance of the FileTools class.
+    Actions: reading and writing to a file, merging files
+    getting relative and absolute paths"""
+    import os.path
+
+    if os.path.exists(my_file):
+
+        class FileTools:
+
+            def __init__(self, file_1):
+                self._file_1 = file_1
+
+            def write_this(self, text):
+                with open(self._file_1, 'w') as writer:
+                    writer.write(text)
+
+            def read_it(self):
+                with open(self._file_1, 'r') as reader:
+                    for line in reader:
+                        print(line, end='')
+
+            def merger(self, file_2):
+                if os.path.exists(file_2):
+                    new_file = 'new_example_json.json'
+                    with open(self._file_1) as reader1, open(file_2) as reader2:
+                        with open(new_file, 'w') as writer:
+                            for line in reader1:
+                                writer.write(line)
+                            writer.write('\n')
+                            for line in reader2:
+                                writer.write(line)
+                else:
+                    print(f'File {file_2} doesn\'t exist')
+
+            def abspath(self):
+                import os
+                print(f'{os.path.abspath(self._file_1)}')
+
+            def relpath(self):
+                import pathlib
+                print(f'{pathlib.Path(self._file_1)}')
+
+        return FileTools(my_file)
+    else:
+        print('File doesn\'t exist')
+
+a = get_file_tools('example_json_1.json')
+print(a.abspath())
+a.merger('example_json_2.json')
+
 # Задача-3
 #
 # Создайте класс который будет хранить параметры для
