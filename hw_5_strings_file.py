@@ -5,25 +5,29 @@
 def remove_from_3_to_5_ch(my_file):
     """ Function removes from a text file an even number of words
     containing from 3 to 5 characters."""
+    import os.path
 
-    with open(my_file) as reader_ex, open('example_new.txt', 'w') as writer_ex:
+    if os.path.exists(my_file):
+        with open(my_file) as reader_ex, open('example_new.txt', 'w') as writer_ex:
+            for line in reader_ex:
+                line = line.rstrip('.\n')
+                line = line.split()
+                len_3_5 = []
+                counter = 0
+                for item in line:
+                    if 3 <= len(item) <= 5:
+                        counter += 1
+                        len_3_5.append(item)
+                #parity check
+                if counter%2 == 0:
+                    line2 = ' '.join([item for item in line if item not in len_3_5])
+                else:
+                    line2 = ' '.join([item for item in line if item not in len_3_5[0:-1]])
 
-        for line in reader_ex:
-            line = line.rstrip('.\n')
-            line = line.split()
-            len_3_5 = []
-            counter = 0
-            for item in line:
-                if 3 <= len(item) <= 5:
-                    counter += 1
-                    len_3_5.append(item)
-            #parity check
-            if counter%2 == 0:
-                line2 = ' '.join([item for item in line if item not in len_3_5])
-            else:
-                line2 = ' '.join([item for item in line if item not in len_3_5[0:-1]])
+                writer_ex.write(f'{line2} \n')
 
-            writer_ex.write(f'{line2} \n')
+    else:
+        print("File doesn't exist")
 
 remove_from_3_to_5_ch('example.txt')
 
@@ -34,12 +38,17 @@ remove_from_3_to_5_ch('example.txt')
 def get_phone_CK(my_file):
     """Function creates a new text file that contains telephones
      last names starting with the letters K and C."""
+    import os.path
 
-    with open(my_file) as reader_ph, open('phone_num_new.txt', 'w') as writer_ph:
-        for line in reader_ph:
-            for item in line:
-                if item.startswith('C') or item.startswith('K'):
-                    writer_ph.write(line)
+    if os.path.exists(my_file):
+
+        with open(my_file) as reader_ph, open('phone_num_new.txt', 'w') as writer_ph:
+            for line in reader_ph:
+                for item in line:
+                    if item.startswith('C') or item.startswith('K'):
+                        writer_ph.write(line)
+    else:
+        print("File doesn't exist")
 
 get_phone_CK('phone_num.txt')
 
@@ -48,18 +57,23 @@ get_phone_CK('phone_num.txt')
 
 def get_right_aligned(my_file):
     """Function creates a new text file in which the text is right aligned. """
+    import os.path
 
-    with open(my_file) as reader_example, open('example_new_2.txt', 'w') as writer_example:
-        file = reader_example.readlines()
-        #find the maximum length of lines
-        len_line = []
-        for line in file:
-            len_line.append(len(line))
-        max_len = max(len_line)
+    if os.path.exists(my_file):
 
-        for line in file:
-            line = line.rstrip('\n')
-            writer_example.write(f'{line.rjust(max_len)}\n')
+        with open(my_file) as reader_example, open('example_new_2.txt', 'w') as writer_example:
+            file = reader_example.readlines()
+            #find the maximum length of lines
+            len_line = []
+            for line in file:
+                len_line.append(len(line))
+            max_len = max(len_line)
+
+            for line in file:
+                line = line.rstrip('\n')
+                writer_example.write(f'{line.rjust(max_len)}\n')
+    else:
+        print("File doesn't exist")
 
 get_right_aligned('example.txt')
 
@@ -75,6 +89,7 @@ get_right_aligned('example.txt')
 def get_more_from_visit_file(my_file):
     """ Function creates a new text file that contains ip, number of visits,
     most popular day of the week and most popular time"""
+    import os.path
 
     def most_frequent(list_var):
         """ Returns the most frequent value """
@@ -87,30 +102,33 @@ def get_more_from_visit_file(my_file):
         max_count = max(count, key=count.get)
         return max_count
 
-    with open(my_file) as reader_st:
-        file = reader_st.readlines()
-        ip = {}
-        ip_day = {}
-        time = []
-        for line in file:
-            line = line.split()
-            time.append(line[1][0:2]) # only hours without minutes and seconds
-            # ip{}
-            if line[0] not in ip:
-                ip[line[0]] = 1
-            else:
-                ip[line[0]] += 1
-            #ip_day{}
-            if line[0] not in ip_day:
-                ip_day[line[0]] = []
-                ip_day[line[0]].append(line[2])
-            else:
-                ip_day[line[0]].append(line[2])
+    if os.path.exists(my_file):
+        with open(my_file) as reader_st:
+            file = reader_st.readlines()
+            ip = {}
+            ip_day = {}
+            time = []
+            for line in file:
+                line = line.split()
+                time.append(line[1][0:2]) # only hours without minutes and seconds
+                # ip{}
+                if line[0] not in ip:
+                    ip[line[0]] = 1
+                else:
+                    ip[line[0]] += 1
+                #ip_day{}
+                if line[0] not in ip_day:
+                    ip_day[line[0]] = []
+                    ip_day[line[0]].append(line[2])
+                else:
+                    ip_day[line[0]].append(line[2])
 
-    with open('visit_st_new.txt', 'w') as writer_st:
-        for key, value in ip.items():
-            if key in ip_day:
-                writer_st.write(f'{key}: total visits - {value}, most popular day - {most_frequent(ip_day[key])} \n')
-        writer_st.write(f'Most popular time from {most_frequent(time)} to {int(most_frequent(time)) + 1} ')
+        with open('visit_st_new.txt', 'w') as writer_st:
+            for key, value in ip.items():
+                if key in ip_day:
+                    writer_st.write(f'{key}: total visits - {value}, most popular day - {most_frequent(ip_day[key])} \n')
+            writer_st.write(f'Most popular time from {most_frequent(time)} to {int(most_frequent(time)) + 1} ')
+    else:
+        print("File doesn't exist")
 
 get_more_from_visit_file('visit_st.txt')
