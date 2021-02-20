@@ -1,0 +1,6 @@
+139.18.150.122: total visits - 2, most popular day - tuesday 
+139.18.150.126: total visits - 5, most popular day - sunday 
+139.18.150.125: total visits - 4, most popular day - sunday 
+139.18.150.124: total visits - 3, most popular day - friday 
+139.18.150.123: total visits - 1, most popular day - sunday 
+Most popular time from 22 to 23 
