@@ -8,7 +8,35 @@
 # (10.11.12.13 -> 11.12.13)
 # 4) Получить список последних октетов IP адресов
 # (10.11.12.13 -> 13)
-#
+class Ip:
+    def __init__(self, ip):
+        self._ip = ip
+
+    def get_ip(self):
+        return self._ip
+
+    def get_ip_expand(self):
+        for item in self._ip:
+            self.ip_expand = item.split('.')
+            self.ip_expand = '.'.join(self.ip_expand[::-1])
+            print(f'{self.ip_expand}')
+
+    def get_ip_without_first(self):
+        for item in self._ip:
+            self.ip_without_first = item[3:]
+            print(self.ip_without_first)
+
+    def get_last_ip(self):
+        for item in self._ip:
+            self.last_ip = item[-2:]
+            print(self.last_ip)
+
+d=Ip(['12.13.15.14', '10.11.12.13'])
+d.get_ip()
+d.get_ip_expand()
+d.get_ip_without_first()
+d.get_last_ip()
+
 # Задача-2
 # У вас несколько JSON файлов. В каждом из этих файлов есть
 # произвольная структура данных. Вам необходимо написать
