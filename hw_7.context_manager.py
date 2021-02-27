@@ -26,3 +26,30 @@ def my_func1():
 
 with path_exc('/hillel', TypeError):
     my_func1()
+
+# Задача -2
+# Описать задачу выше но уже с использованием @contexmanager
+
+from contextdecorator import ContextDecorator
+
+
+class contextmanager(ContextDecorator):
+    def __init__(self, path, *exception):
+        self.path = path
+        self.exception = exception
+
+    def __enter__(self):
+        self.saved_cwd = os.getcwd()  # текущая рабочая директория.
+        os.chdir(self.path)  # смена текущей директории
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        os.chdir(self.saved_cwd)
+        return exc_type is not None and issubclass(exc_type, self.exception)
+
+
+@contextmanager('/hillel', TypeError)
+def my_func2():
+    res = sum([i for i in range('Hello world')])
+    return res
+
+print(my_func2())
