@@ -53,3 +53,27 @@ def my_func2():
     return res
 
 print(my_func2())
+
+# Задача -3
+# Создать менеджер контекста который будет подсчитывать время выполнения вашей функции
+import time
+
+
+class timer:
+
+    def __enter__(self):
+        self.start_time = time.time()
+
+    def __exit__(self, *exc_info):
+        self.end_time = time.time()
+        self.time = self.end_time - self.start_time
+        print(self.time)
+
+
+def my_func3():
+    sum([i for i in range(10000)])
+    return
+
+with timer():
+    my_func3()
+    print('Runtime: ', end='')
