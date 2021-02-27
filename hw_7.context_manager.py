@@ -11,21 +11,18 @@ class path_exc:
         self.exception = exception
 
     def __enter__(self):
-        self.saved_cwd = os.getcwd()  # текущая рабочая директория.
-        os.chdir(self.path)  # смена текущей директории
+        try:
+            self.saved_cwd = os.getcwd()  # текущая рабочая директория.
+            os.chdir(self.path)  # смена текущей директории
+        except self.exception:
+            pass
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         os.chdir(self.saved_cwd)
-        return exc_type is not None and issubclass(exc_type, self.exception)
 
 
-def my_func1():
-    res = sum([i for i in range('Hello world')])
-    return res
-
-
-with path_exc('/hillel', TypeError):
-    my_func1()
+with path_exc('/hillel2', FileNotFoundError):
+    print('Not error')
 
 # Задача -2
 # Описать задачу выше но уже с использованием @contexmanager
