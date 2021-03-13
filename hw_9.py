@@ -23,7 +23,7 @@ class MyClass:
 my_class = MyClass()
 my_class.email = "validemail@gmail.com"
 
-#my_class.email = "novalidemail"
+my_class.email = "novalidemail"
 # Raised Exception
 
 
@@ -88,7 +88,6 @@ assert data_row.number != new_data_row.number
 class VAT:
 
     def __get__(self, instance, owner):
-        print('get price * 1.2')
         return instance._price * 1.2
 
     def __set__(self, instance, value):
@@ -124,10 +123,10 @@ class Product:
 # 2) Добавить товар на склад
     def add_to_warehouse(self, quantity):
         if self.name in self._warehouse:
-            print(f'Product {self.name} {quantity} added to warehouse')
             self._warehouse[self.name] += quantity
         else:
             self._warehouse[self.name] = quantity
+        print(f'Product {self.name} {quantity} added to warehouse')
         self.get_availb()
         self._update_quantity(self._warehouse[self.name])
         return self._warehouse[self.name]
@@ -188,7 +187,7 @@ class Basket:
         if product.get_availb:
             if quantity <= product.quantity:
                 return quantity
-        return 0
+        return None
 
     def get_total_price(self, product, quantity):
         if self.quantity == 0:
@@ -205,15 +204,17 @@ class Basket:
 # 9) Добавить товары в корзину (вы не можете добавлять товары, если их нет в наличии)
     def add_to_basket(self, product, quantity):
         if product.name in self._basket:
-            if self.check_quantity(product, (quantity+self._basket[product.name]['quantity'])) !=0:
+            if not self.check_quantity(product, (quantity + self._basket[product.name]['quantity'])) is None:
                 print(f'Product {product.name} {quantity} added to basket')
                 self._basket[product.name]['quantity'] += quantity
-                self._basket[product.name]['price'] = self.get_total_price(product, self._basket[product.name]['quantity'])
+                self._basket[product.name]['price'] = self.get_total_price(product,
+                                                                           self._basket[product.name]['quantity'])
             else:
                 print(f"Only {product.quantity - self._basket[product.name]['quantity']}")
         else:
-            if self.check_quantity(product, quantity) !=0:
-                self._basket[product.name] = {'quantity': quantity, 'price': self.get_total_price(product,quantity)}
+            if not self.check_quantity(product, quantity) is None:
+                print(f'Product {product.name} {quantity} added to basket')
+                self._basket[product.name] = {'quantity': quantity, 'price': self.get_total_price(product, quantity)}
             else:
                 print(f'Only {product.quantity}')
 
@@ -227,9 +228,7 @@ class Basket:
         print(f'Total price:', end=' ')
         print(f'{self.get_all_total_price()}')
 
-
 # 11) Оформить заказ и распечатать детали заказа по его номеру
-
     def create_order(self):
          self._order = Order(self)
 
@@ -240,7 +239,7 @@ class Basket:
 # 12) Позиция заказа, созданная после оформления заказа пользователем.
 from datetime import datetime
 
-class Order(Basket, Product):
+class Order:
     counter = 1
     orders = {}
 
